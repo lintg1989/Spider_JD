@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snike:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="snik.war">
+      <element id="artifact" artifact-name="snike:war exploded" />
+    </root>
+  </artifact>
+</component>
