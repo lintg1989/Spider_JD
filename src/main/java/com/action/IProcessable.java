@@ -1,10 +1,10 @@
 package com.action;
 
-import com.bean.Page;
+import com.bean.Good;
 
 /**
  * Created by Lin on 2017/4/1.
  */
 public interface IProcessable {
-    void process(Page page);
+    void process(Good page);
 }

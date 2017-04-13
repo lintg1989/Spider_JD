@@ -4,10 +4,7 @@ import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +14,18 @@ import java.util.List;
 public class DBUtil {
 
     private static String className = "com.mysql.jdbc.Driver";
-    private static String url = "jdbc:mysql://localhost:3306/spider?"
+    private static String url = "jdbc:mysql://127.0.0.1:3306/spider?"
             + "useUnicode=true&characterEncoding=utf-8&useSSL=true";
     private static String user = "root";
     private static String password = "root";
     private static QueryRunner queryRunner = new QueryRunner();
 
-    public static final String INSERT_LOG = "INSERT INTO SPIDER(good_id," +
-            "data_url,price_url,good_name,price,param,'current_time')VALUES(?,?,?,?,?,?,?)";
+    public static final String INSERT_PPRICE = "insert into jd_price(good_id,price,cur_time)values(?,?,?)";
+    public static final String DELETE_PRICE = "DELETE FROM jd_price";
+
+    public static final String SELECT_GOODS = "select * from jd_goods";
+
+    public static String[]goodIds;
 
     //拒绝创建一个实例
     private DBUtil(){};
@@ -74,5 +75,55 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * 清空表
+     * @param
+     */
+    public synchronized static void deletePriceTable() {
+        String sql = "DELETE FROM jd_price";
+
+        java.sql.PreparedStatement preparedStatement = null;
+        try {
+            Connection conn = getConnection();
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+            System.out.println("jd_price删除表成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * select操作
+     * @param sql
+     * @return
+     */
+    public static List<String> selectSQL(String sql ){
+        List<String>goodIds = new ArrayList<String>();
+        ResultSet resultSet = null;
+        try {
+            Connection conection = getConnection();
+            PreparedStatement statement = conection.prepareStatement(sql);
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                String goodid = resultSet.getString(2);
+                goodIds.add(goodid);
+                System.out.println("goodId =" + goodid);
+
+            }
+
+            conection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return goodIds;
+    }
+
+
 
 }

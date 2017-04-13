@@ -1,76 +1,60 @@
 package com.bean;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.proxy.entity.Proxy;
 
 /**
- * 保存页面信息
- * Created by Lin on 2017/4/1.
+ * Created by Lin on 2017/4/6.
  */
 public class Page {
+    private String url;
+    private int statusCode;//响应状态码
+    private String html;//response content
+    private Proxy proxy;
 
-    private String goodId;
-    private String goodName;
-    private String dateUrl;
-    private String picUrl;
-    private String price;
-    private Map<String, String> param = new HashMap<String, String>();
-    private String content;//源代码
-
-    public String getGoodId() {
-        return goodId;
+    public String getUrl() {
+        return url;
     }
 
-    public void setGoodId(String goodId) {
-        this.goodId = goodId;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getGoodName() {
-        return goodName;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setGoodName(String goodName) {
-        this.goodName = goodName;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
-    public String getDateUrl() {
-        return dateUrl;
+    public String getHtml() {
+        return html;
     }
 
-    public void setDateUrl(String dateUrl) {
-        this.dateUrl = dateUrl;
+    public void setHtml(String html) {
+        this.html = html;
     }
 
-    public String getPicUrl() {
-        return picUrl;
+    public Proxy getProxy() {
+        return proxy;
     }
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public void setProxy(Proxy proxy) {
+        this.proxy = proxy;
     }
 
-    public String getPrice() {
-        return price;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Page page = (Page) o;
+
+        return url.equals(page.url);
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    @Override
+    public int hashCode() {
+        return url.hashCode();
     }
-
-    public Map<String, String> getParam() {
-        return param;
-    }
-
-    public void setParam(Map<String, String> param) {
-        this.param = param;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
 }

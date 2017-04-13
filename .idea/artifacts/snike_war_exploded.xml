@@ -16,6 +16,7 @@
           <element id="library" level="project" name="Maven: org.json:json:20160810" />
           <element id="library" level="project" name="Maven: net.sourceforge.htmlcleaner:htmlcleaner:2.16" />
           <element id="library" level="project" name="Maven: org.jdom:jdom2:2.0.5" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.7.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

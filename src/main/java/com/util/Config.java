@@ -1,5 +1,8 @@
 package com.util;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * 加载配置文件
  * Created by Lin on 2017/3/30.
@@ -8,7 +11,7 @@ public class Config {
     /**
      * 是否持久化到数据库
      */
-    public static boolean daEnable;
+    public static boolean dbEnable;
     /**
      * 是否使用代理抓取
      */
@@ -60,9 +63,43 @@ public class Config {
     public static String createUserTable;
 
     /**
+     * 创建price表语句
+     */
+    public static String createPriceTable;
+
+    /**
      * cookie路劲
      */
     public static String cookiePath;
 
     public static String proxyPath;
+
+
+    static {
+        Properties p = new Properties();
+        try {
+            p.load(Config.class.getResourceAsStream("/config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dbEnable = Boolean.parseBoolean(p.getProperty("db.enable"));
+        verificationCodePath = p.getProperty("verificationCodePath");
+        emailOrPhone = p.getProperty("jd.emailOrPhoneNum");
+        password = p.getProperty("jd.password");
+        startURL = p.getProperty("startURL");
+        startUserToken = p.getProperty("startUserToken");
+        downloadPageCount = Integer.valueOf(p.getProperty("downloadPageCount"));
+        downloadThreadSize = Integer.valueOf(p.getProperty("downloadThreadSize"));
+        cookiePath = p.getProperty("cookiePath");
+        proxyPath = p.getProperty("proxyPath");
+        isProxy = Boolean.valueOf(p.getProperty("isProxy"));
+        if (dbEnable){
+            dbName = p.getProperty("db.name");
+            dbHost = p.getProperty("db.host");
+            dbUserName = p.getProperty("db.username");
+            dbPassword = p.getProperty("db.password");
+            createPriceTable = p.getProperty("createPriceTable");
+            createUserTable = p.getProperty("createUserTable");
+        }
+    }
 }
